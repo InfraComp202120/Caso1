@@ -1,5 +1,5 @@
 package source;
 
-public class Lavaplatos extends Thread {
+public class Lavaplatos extends Thread{
 
 }

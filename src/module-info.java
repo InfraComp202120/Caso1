@@ -1,2 +1,2 @@
-module Caso1 {
+module caso1 {
 }
