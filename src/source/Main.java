@@ -48,8 +48,7 @@ public class Main {
 		cargarDatos();
 		System.out.println(tamFregadero);
 		
-		
-		
+
 		
 		
 	}
