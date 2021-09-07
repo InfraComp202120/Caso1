@@ -48,6 +48,9 @@ public class Comensal extends Thread{
 		
 		
 	}
+	public void comerPlato() {
+		contadorPlatos++;
+	}
 	
 	
 	/**
