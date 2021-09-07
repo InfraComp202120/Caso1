@@ -44,8 +44,18 @@ public class Comensal extends Thread{
 			System.out.println("Soy el comensal: "+id+" y me estoy comiendo el plato: "+(contadorPlatos+1));
 			boolean tipo = (Math.round(Math.random())==1?true:false); // si tipo es false cubierto t1, true cubierto t2
 			
-			mesa.agarrarCubierto(tipo, false); //Agarra el primer cubierto
-			mesa.agarrarCubierto(!tipo, true); //Agarra el segundo cubierto
+			
+			while(true)
+			{
+				mesa.agarrarCubierto(tipo, false, id); //Agarra el primer cubierto
+				if(mesa.agarrarCubierto(!tipo, true, id)) //Agarra el segundo cubierto
+				{
+					break;
+				}
+				tipo = !tipo;
+			}
+			
+			
 			
 			comerPlato(); //Come el plato y suma 1 al contador de platos
 		
