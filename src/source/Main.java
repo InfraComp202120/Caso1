@@ -6,26 +6,53 @@ import java.util.concurrent.CyclicBarrier;
 
 public class Main {
 
+	/**
+	 * Path del archivo con las properties para la carga inicial
+	 */
 	public final static String pathDatos = "./data/data.properties";
 	
+	/**
+	 * Mesa donde se ubicarán los comensales
+	 */
 	private static Mesa mesa;
 	
+	/**
+	 * Fregadero donde se ubicarán los cubiertos sucios
+	 */
 	private static Fregadero fregadero;
 	
+	/**
+	 * Número de comensales en la mesa
+	 */
 	private static int numComensales;
 	
+	/**
+	 * Número de cubiertos tipo 1 iniciales
+	 */
 	private static int numCubiertosT1;
 	
+	/**
+	 * Número de cubiertos tipo 2 iniciales
+	 */
 	private static int numCubiertosT2;
 	
+	/**
+	 * Número de platos que cada comensal comerá
+	 */
 	private static int numPlatos;
 	
+	/**
+	 * Número máximo de pares de cubiertos que podrá contener el fregadero
+	 */
 	private static int tamFregadero;
 	
 	
 	
 	
-	
+	/**
+	 * Carga los datos de un archivo properties en pathDatos
+	 * @throws Exception Error en el formato del archivo properties
+	 */
 	public static void cargarDatos() throws Exception {
 
 		Properties datos = new Properties( );
@@ -47,7 +74,11 @@ public class Main {
 	}
 	
 	
-	
+	/**
+	 * Método de ejecución del programa, inicializa los comensales, la barrera, el lavaplatos y el fregadero
+	 * @param args
+	 * @throws Exception
+	 */
 	public static void main(String[] args) throws Exception {
 		
 		cargarDatos();
