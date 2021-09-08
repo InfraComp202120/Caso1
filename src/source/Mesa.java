@@ -81,7 +81,8 @@ public class Mesa {
 		cubiertosTipo1++;
 		cubiertosTipo2++;  //cubiertos sucios
 		notifyAll();
-		System.out.println("Soy la mesa y hay T1: "+ cubiertosTipo1+"  T2: "+cubiertosTipo2);
+		System.out.println("Mesa: aviso para comensales, acaba de llegar un par de cubiertos."
+				+ "\n	Ahora hay: "+ cubiertosTipo1+" cubiertos tipo 1  y "+cubiertosTipo2+" cubiertos tipo 2.\n ");
 
 
 

@@ -34,17 +34,16 @@ public class Comensal extends Thread{
 		
 		while(contadorPlatos<maxPlatos)
 		{
-			System.out.println("Comensal "+id+" : comencé a comer mi plato número: "+(contadorPlatos+1)+". ");
 			boolean tipo = (Math.round(Math.random())==1?true:false); // si tipo es false cubierto t1, true cubierto t2
 			
 			System.out.println("Comensal "+id+" : comencé a comer mi plato número: "+(contadorPlatos+1)+". \n"
-					+ "	Intentaré agarrar un cubierto de tipo "+(tipo?1:0)+" \n");
+					+ "	Intentaré agarrar un cubierto de tipo "+(tipo?2:1)+" \n");
 			while(true)
 			{
 				mesa.agarrarCubierto(tipo, false, id); //Agarra el primer cubierto
 				if(mesa.agarrarCubierto(!tipo, true, id)) //Agarra el segundo cubierto
 				{
-					System.out.println("Comensal "+id+" : logré agarrar mis dos cubiertos, procedo a comer el plato.");
+					System.out.println("Comensal "+id+" : logré agarrar mis dos cubiertos, procedo a comer el plato"+contadorPlatos+".");
 					break;
 				}
 				tipo = !tipo;
@@ -65,6 +64,7 @@ public class Comensal extends Thread{
 			if(contadorPlatos==maxPlatos/2)
 			{
 				try {
+					
 					System.out.println("Comensal "+id+" : Acabé el plato número "+contadorPlatos+" espero a que los demás lleguen.");
 					if(barrera.await()==0)  //Duerme a los comensales hasta que todos lleguen a la mitad de los platos
 						System.out.println("\n --------------TODOS LOS COMENSALES LLEGARON AL PLATO "+contadorPlatos+" LA CENA CONTINUA ----------------\n");
@@ -88,6 +88,17 @@ public class Comensal extends Thread{
 		
 		
 		System.out.println("---Comensal "+id+" : ya terminé todos mis platos.---");
+		
+		try {
+			if(barrera.await()==0)  //Duerme a los comensales hasta que todos lleguen a la mitad de los platos
+				System.out.println("\n --------------TODOS LOS COMENSALES LLEGARON AL ULTIMO PLATO ("+contadorPlatos+") LA CENA FINALIZÓ ----------------\n");
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (BrokenBarrierException e) {
+			e.printStackTrace();
+		}
+
+		
 	}
 	
 	public void comerPlato() {

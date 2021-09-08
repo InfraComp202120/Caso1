@@ -34,7 +34,7 @@ public class Lavaplatos extends Thread{
 			lavarCubiertos();  // Duerme el thread entre 1 y 2 seg
 
 			mesa.restaurarCubiertos(); //Devuelve los cubiertos a la mesa
-			System.out.println("Devolvi 1 par de cubierto ");
+			//System.out.println("Devolvi 1 par de cubierto ");
 
 		}
 
@@ -48,6 +48,8 @@ public class Lavaplatos extends Thread{
 
 		long tLavando = (Math.round( (Math.random()+1))); //Duerme Tiempo aleatorio entre 1 y 2 segundos
 		try {
+			
+			System.out.println("Lavaplatos : Acabo de recibir un par de cubiertos, me demoraré "+tLavando+" segundos lavando.");
 			sleep(tLavando*1000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
