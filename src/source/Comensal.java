@@ -5,19 +5,45 @@ import java.util.concurrent.CyclicBarrier;
 
 public class Comensal extends Thread{
 
+	/**
+	 * Contador de platos que ha comido el comensal
+	 */
 	private int contadorPlatos;
 	
+	/**
+	 * Número de platos totales que comerá el comensal
+	 */
 	private int maxPlatos;
 
+	/**
+	 * Identificador único del comensal
+	 */
 	private int id;
 	
+	/**
+	 * Mesa donde comen los comensales 
+	 */
 	private static Mesa mesa;
 	
+	/**
+	 * Fregadero donde se dejan los cubiertos sucios
+	 */
 	private static Fregadero fregadero;
 	
+	/**
+	 * Barrera para esperar a los demás comensales
+	 */
 	private static CyclicBarrier barrera;
 
 
+	/**
+	 * Método constructor del Comensal
+	 * @param maxPlatos Número de platos que comerá el Comensal	
+	 * @param mesa Mesa donde están los cubiertos
+	 * @param fregadero ubicación donde se dejarán los cubiertos sucios
+	 * @param id identificador único del Comensal
+	 * @param barrera Barrera para esperar a los demás comensales
+	 */
 	public Comensal( int maxPlatos, Mesa mesa, Fregadero fregadero, int id,  CyclicBarrier barrera)
 	{
 		this.maxPlatos=maxPlatos;
@@ -29,7 +55,9 @@ public class Comensal extends Thread{
 		this.fregadero= fregadero;
 	}
 	
-	
+	/**
+	 * Método que corre el Thread Comensal, hace ciclo para comer todos los platos y enviar los cubiertos sucios al fregadero.
+	 */
 	public void run() {
 		
 		while(contadorPlatos<maxPlatos)
@@ -100,7 +128,9 @@ public class Comensal extends Thread{
 
 		
 	}
-	
+	/**
+	 * Método que representa el Comensal comiendo un plato durante un tiempo aleatorio entre 3 y 5 segundos
+	 */
 	public void comerPlato() {
 		
 		long tComiendo = (Math.round( (Math.random()*2+3))); //Duerme Tiempo aleatorio entre 3 y 5 segundos
