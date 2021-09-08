@@ -28,20 +28,19 @@ public class Mesa {
 	public synchronized boolean agarrarCubierto( boolean tipo, boolean yaTengoUnCubierto, int id) {
 
 
-		System.out.println("Soy la mesa intentando agarrar un cubierto tipo "+ tipo+ " y hay T1: "+ cubiertosTipo1+"  T2: "+cubiertosTipo2);
+		//System.out.println("Soy la mesa intentando agarrar un cubierto tipo "+ tipo+ " y hay T1: "+ cubiertosTipo1+"  T2: "+cubiertosTipo2);
 		if(!tipo)  // Tipo false es cubierto tipo 1
 		{
 			while(cubiertosTipo1==0) {  // No tiene cubiertos TIPO 1
 
 				if(yaTengoUnCubierto) { // Ya tenía tipo 2 {
-					//devolverAnteriorYSeguir(true);  //Quiere devolver tipo 2
 					cubiertosTipo2++;
 					return false;
 				}
 				else  // Este es el primer cubiertos
 				{ 
 					try {
-						System.out.println("Entrando a dormir porque no hay cubiertos tipo 1");
+						System.out.println("Comensal "+id+": no hay cubiertos tipo 1, estoy a la espera.");
 						wait();  //Duerme si no hay cubiertos tipo 1	
 					}  
 					catch (InterruptedException e) {} 				
@@ -56,7 +55,6 @@ public class Mesa {
 			while(cubiertosTipo2==0) {  // No tiene cubiertos TIPO 2
 
 				if(yaTengoUnCubierto) { // Ya tenía tipo 1
-					//devolverAnteriorYSeguir(false); //Se devuelve el tipo 1 
 					cubiertosTipo1++;
 					return false;
 				}
@@ -64,7 +62,7 @@ public class Mesa {
 				else  // Este es el primer cubierto
 				{ 
 					try {
-						System.out.println("Entrando a dormir porque no hay cubiertos tipo 2");
+						System.out.println("Comensal "+id+": no hay cubiertos tipo 2, estoy a la espera.");
 						wait();  //Duerme si no hay cubiertos tipo 2	
 					}  
 					catch (InterruptedException e) {} 				

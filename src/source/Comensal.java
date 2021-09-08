@@ -8,11 +8,6 @@ public class Comensal extends Thread{
 	private int contadorPlatos;
 	
 	private int maxPlatos;
-	
-	//private boolean cubiertoTipo1;
-	
-	//private boolean cubiertoTipo2;
-	
 
 	private int id;
 	
@@ -27,8 +22,6 @@ public class Comensal extends Thread{
 	{
 		this.maxPlatos=maxPlatos;
 		contadorPlatos=0;
-		//cubiertoTipo1=false;
-		//cubiertoTipo2=false;
 		
 		this.mesa=mesa;
 		this.id=id;
@@ -41,10 +34,11 @@ public class Comensal extends Thread{
 		
 		while(contadorPlatos<maxPlatos)
 		{
-			System.out.println("Soy el comensal: "+id+" y me estoy comiendo el plato: "+(contadorPlatos+1));
+			System.out.println("Comensal "+id+" : comencé a comer mi plato número: "+(contadorPlatos+1)+". ");
 			boolean tipo = (Math.round(Math.random())==1?true:false); // si tipo es false cubierto t1, true cubierto t2
 			
-			
+			System.out.println("Comensal "+id+" : comencé a comer mi plato número: "+(contadorPlatos+1)+". \n"
+					+ "	Intentaré agarrar un cubierto de tipo "+(tipo));
 			while(true)
 			{
 				mesa.agarrarCubierto(tipo, false, id); //Agarra el primer cubierto

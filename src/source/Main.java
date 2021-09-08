@@ -21,7 +21,7 @@ public class Main {
 	private static int numPlatos;
 	
 	private static int tamFregadero;
-
+	
 	
 	
 	
@@ -51,8 +51,10 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		
 		cargarDatos();
-		System.out.println(numComensales);
-		
+		//System.out.println(numComensales);
+		System.out.println("------------------INICIO DE LA CENA------------------\n");
+		System.out.println("La cena inicia con: "+numComensales+" comensales, "+numPlatos+" platos para cada comensal,\n "
+							+numCubiertosT1+" cubiertos de tipo 1, "+numCubiertosT2+" cubiertos de tipo 2 y un fregadero de tamaño "+tamFregadero +"\n");
 		mesa = new Mesa(numCubiertosT1, numCubiertosT2, numPlatos, numComensales);
 		fregadero = new Fregadero(tamFregadero);
 
@@ -65,7 +67,7 @@ public class Main {
 		for (int i = 0; i < comensales.length; i++) {
 			comensales[i]=new Comensal(numPlatos, mesa,fregadero,i,barrera);
 			comensales[i].start();
-			System.out.println("Corriendo thread:  "+i);
+			System.out.println("	Comensal "+i+" : Acabo de entrar a la mesa.");
 		}
 		 
 		
