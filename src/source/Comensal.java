@@ -61,13 +61,13 @@ public class Comensal extends Thread{
 				yield();
 			}
 			
-
+			
 			if(contadorPlatos==maxPlatos/2)
 			{
 				try {
-					System.out.println("Soy el comensal: "+id+" y me dormí ");
-					barrera.await();  //Duerme a los comensales hasta que todos lleguen a la mitad de los platos
-					System.out.println("Soy el comensal: "+id+" y me desperté ");
+					System.out.println("Comensal "+id+" : Acabé el plato número "+contadorPlatos+" espero a que los demás lleguen.");
+					if(barrera.await()==0)  //Duerme a los comensales hasta que todos lleguen a la mitad de los platos
+						System.out.println("\n --------------TODOS LOS COMENSALES LLEGARON AL PLATO "+contadorPlatos+" LA CENA CONTINUA ----------------\n");
 				
 				} catch (InterruptedException e) {
 					e.printStackTrace();
@@ -85,7 +85,9 @@ public class Comensal extends Thread{
 				e.printStackTrace();
 			}
 		}
-		System.out.println("Comensal: "+id+" ya terminó sus platos");
+		
+		
+		System.out.println("---Comensal "+id+" : ya terminé todos mis platos.---");
 	}
 	
 	public void comerPlato() {
