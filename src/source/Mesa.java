@@ -28,7 +28,7 @@ public class Mesa {
 	public synchronized boolean agarrarCubierto( boolean tipo, boolean yaTengoUnCubierto, int id) {
 
 
-		System.out.println("Soy la mesa intentando agarrar un cubierto tipo "+ tipo+ "y hay T1: "+ cubiertosTipo1+"  T2: "+cubiertosTipo2);
+		System.out.println("Soy la mesa intentando agarrar un cubierto tipo "+ tipo+ " y hay T1: "+ cubiertosTipo1+"  T2: "+cubiertosTipo2);
 		if(!tipo)  // Tipo false es cubierto tipo 1
 		{
 			while(cubiertosTipo1==0) {  // No tiene cubiertos TIPO 1
