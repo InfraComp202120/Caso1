@@ -67,7 +67,7 @@ public class Main {
 		for (int i = 0; i < comensales.length; i++) {
 			comensales[i]=new Comensal(numPlatos, mesa,fregadero,i,barrera);
 			comensales[i].start();
-			System.out.println("	Comensal "+i+" : Acabo de entrar a la mesa.");
+			System.out.println("Comensal "+i+" : Acabo de entrar a la mesa.");
 		}
 		 
 		

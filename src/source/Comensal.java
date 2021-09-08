@@ -38,15 +38,17 @@ public class Comensal extends Thread{
 			boolean tipo = (Math.round(Math.random())==1?true:false); // si tipo es false cubierto t1, true cubierto t2
 			
 			System.out.println("Comensal "+id+" : comencé a comer mi plato número: "+(contadorPlatos+1)+". \n"
-					+ "	Intentaré agarrar un cubierto de tipo "+(tipo));
+					+ "	Intentaré agarrar un cubierto de tipo "+(tipo?1:0)+" \n");
 			while(true)
 			{
 				mesa.agarrarCubierto(tipo, false, id); //Agarra el primer cubierto
 				if(mesa.agarrarCubierto(!tipo, true, id)) //Agarra el segundo cubierto
 				{
+					System.out.println("Comensal "+id+" : logré agarrar mis dos cubiertos, procedo a comer el plato.");
 					break;
 				}
 				tipo = !tipo;
+				System.out.println("Comensal "+id+" : no pude agarrar el segundo cubierto que era de tipo: "+(tipo?1:0));
 			}
 			
 			
@@ -55,7 +57,7 @@ public class Comensal extends Thread{
 		
 			while(!fregadero.recibirCubiertos())  //El comensal intenta depositar sus cubiertos en fregadero
 			{  
-				System.out.println("Comensal :"+ id +"Fregadero lleno, me pauso");
+				System.out.println("Comensal "+id+" : Intento entregar cubiertos pero el fregadero está lleno, espero para volver a intentar.");
 				yield();
 			}
 			
