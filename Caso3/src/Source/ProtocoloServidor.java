@@ -8,7 +8,7 @@ public class ProtocoloServidor {
 
 	public static void procesar(PrintWriter writer, BufferedReader reader) throws IOException{
 		
-		
+		System.out.println(reader.readLine());
 		
 	}
 	
