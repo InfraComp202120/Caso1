@@ -10,7 +10,7 @@ import java.net.Socket;
 public class Servidor {
 	
 	
-	int numThreads = 0;
+	static int numThreads = 0;
 	
 	public static final int PUERTO_S = 3400 ;
 	
@@ -32,9 +32,15 @@ public class Servidor {
 			System.exit(-1);
 		}
 		
+		
+		
 		while(continuar) {
-			Socket socket=ss.accept();
 			
+			Socket socket=ss.accept();
+			ThreadServidor threadDelegado =  new ThreadServidor(socket, numThreads);
+			numThreads++;
+			
+			threadDelegado.start();
 			
 			 
 		}

@@ -6,14 +6,14 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class ThreadServidor extends Thread {
+public class ThreadRepetidor extends Thread {
 	
 	
 	private Socket socket;
 	
 	private int id;
 	
-	public ThreadServidor(Socket socket, int id) {
+	public ThreadRepetidor(Socket socket, int id) {
 		
 		this.socket = socket;
 		this.id=id;
@@ -30,7 +30,7 @@ public class ThreadServidor extends Thread {
 			
 			// ACA VA LA PARTE DE ENVIO DE MENSAJES Y ESO
 			
-			ProtocoloServidor.procesar(writer, reader);
+			ProtocoloRepetidor.procesar(writer, reader);
 			
 			
 			// Cierre de los flujos y socket
