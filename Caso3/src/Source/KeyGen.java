@@ -27,8 +27,8 @@ public class KeyGen {
 		this.keyGen.initialize(keyLength);
 		createKeys();
 		try {
-			writeToFile("KeyPair/publicKey", getPublicKey().getEncoded());
-			writeToFile("KeyPair/privateKey", getPrivateKey().getEncoded());
+			writeToFile("./data/KeyPair/publicKey", getPublicKey().getEncoded());
+			writeToFile("./data/KeyPair/privateKey", getPrivateKey().getEncoded());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -59,19 +59,19 @@ public class KeyGen {
 		fos.close();
 	}
 
-//	public static void main(String[] args) {
-//		GenerateKeys gk;
-//		try {
-//			gk = new GenerateKeys(1024);
-//			gk.createKeys();
-//			gk.writeToFile("KeyPair/publicKey", gk.getPublicKey().getEncoded());
-//			gk.writeToFile("KeyPair/privateKey", gk.getPrivateKey().getEncoded());
-//		} catch (NoSuchAlgorithmException | NoSuchProviderException e) {
-//			System.err.println(e.getMessage());
-//		} catch (IOException e) {
-//			System.err.println(e.getMessage());
-//		}
-//
-//	}
+	public static void main(String[] args) {
+		KeyGen gk;
+		try {
+			gk = new KeyGen(1024);
+			gk.createKeys();
+			gk.writeToFile("KeyPair/publicKey", gk.getPublicKey().getEncoded());
+			gk.writeToFile("KeyPair/privateKey", gk.getPrivateKey().getEncoded());
+		} catch (NoSuchAlgorithmException | NoSuchProviderException e) {
+			System.err.println(e.getMessage());
+		} catch (IOException e) {
+			System.err.println(e.getMessage());
+		}
+
+	}
 
 }

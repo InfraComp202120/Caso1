@@ -89,9 +89,10 @@ public class Asymmetric {
 	}
 
 	public static void main(String[] args) throws Exception {
+		KeyGen key = new KeyGen(512);
 		Asymmetric ac = new Asymmetric();
-		PrivateKey privateKey = ac.getPrivate("KeyPair/privateKey");
-		PublicKey publicKey = ac.getPublic("KeyPair/publicKey");
+		PrivateKey privateKey = ac.getPrivate("./data/KeyPair/privateKey");
+		PublicKey publicKey = ac.getPublic("./data/KeyPair/publicKey");
 
 		String msg = "Cryptography is fun!";
 		String encrypted_msg = ac.encryptText(msg, privateKey);
@@ -100,11 +101,11 @@ public class Asymmetric {
 			"\nEncrypted Message: " + encrypted_msg
 			+ "\nDecrypted Message: " + decrypted_msg);
 
-		if (new File("KeyPair/text.txt").exists()) {
-			ac.encryptFile(ac.getFileInBytes(new File("KeyPair/text.txt")), 
-				new File("KeyPair/text_encrypted.txt"),privateKey);
-			ac.decryptFile(ac.getFileInBytes(new File("KeyPair/text_encrypted.txt")),
-				new File("KeyPair/text_decrypted.txt"), publicKey);
+		if (new File("./data/KeyPair/text.txt").exists()) {
+			ac.encryptFile(ac.getFileInBytes(new File("./data/KeyPair/text.txt")), 
+				new File("./data/KeyPair/text_encrypted.txt"),privateKey);
+			ac.decryptFile(ac.getFileInBytes(new File("./data/KeyPair/text_encrypted.txt")),
+				new File("./data/KeyPair/text_decrypted.txt"), publicKey);
 		} else {
 			System.out.println("Create a file text.txt under folder KeyPair");
 		}
