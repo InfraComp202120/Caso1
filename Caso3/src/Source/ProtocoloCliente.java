@@ -15,7 +15,7 @@ public class ProtocoloCliente {
 		idCliente = stdIn.readLine();
 		
 		out.println(idCliente);
-		System.out.println(in.readLine()+"\n    "+in.readLine());  //Recibe primer mensaje del repetidor
+		System.out.println(in.readLine()+"\n    Escriba el identificador del mensaje que desea recibir. Debe ser un numero entre 00-09");  //Recibe primer mensaje del repetidor
 		
 		String idMensaje = stdIn.readLine();
 		

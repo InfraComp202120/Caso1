@@ -30,7 +30,7 @@ public class ProtocoloRepetidor {
 		String idCliente=reader.readLine();
 		System.out.println("Estableciendo conexión con el cliente "+idCliente);
 		writer.println("Repetidor: Bienvenido cliente "+idCliente + ".");
-		writer.println("	Cifre y escriba el identificador del mensaje que enviará.");
+		//writer.println("	Cifre y escriba el identificador del mensaje que enviará.");
 		
 		
 		writer_rs.println("Repetidor: Buenas noches, soy el repetidor delegado del cliente "+idCliente);
