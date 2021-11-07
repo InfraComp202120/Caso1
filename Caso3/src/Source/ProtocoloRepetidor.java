@@ -10,7 +10,7 @@ public class ProtocoloRepetidor {
 
 	
 	
-	public static void procesar(PrintWriter writer, BufferedReader reader) throws IOException{
+	public static void procesar(PrintWriter writer_cliente, BufferedReader reader_cliente) throws IOException{
 
 		Socket socket_rs = null;
 		
@@ -27,10 +27,10 @@ public class ProtocoloRepetidor {
 		}
 		
 		
-		String idCliente=reader.readLine();
+		String idCliente=reader_cliente.readLine();
 		System.out.println("Estableciendo conexión con el cliente "+idCliente);
-		writer.println("Repetidor: Bienvenido cliente "+idCliente + ".");
-		//writer.println("	Cifre y escriba el identificador del mensaje que enviará.");
+		
+		writer_cliente.println("Repetidor: Bienvenido cliente "+idCliente + ".");
 		
 		
 		writer_rs.println("Repetidor: Buenas noches, soy el repetidor delegado del cliente "+idCliente);

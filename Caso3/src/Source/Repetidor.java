@@ -73,7 +73,7 @@ public class Repetidor extends Thread {
 		//CASO ASIMETRICO
 		else {
 			
-			
+			System.out.println("Ola");
 			
 		}
 		

@@ -6,20 +6,35 @@ import java.io.PrintWriter;
 
 public class ProtocoloCliente {
 
-	private static String idCliente;
 	
-	public static void procesar(BufferedReader stdIn, PrintWriter out, BufferedReader in) throws IOException{
+	public static  void procesar(BufferedReader stdIn, PrintWriter out, BufferedReader in) throws IOException{
+
+		System.out.println("Bienvenido, escriba su identificador. (Números que inician en 1)");
 		
-		System.out.println("Bienvenido, escriba su identificador.");
-		
-		idCliente = stdIn.readLine();
+		String idCliente = stdIn.readLine();
+		int numCliente = Integer.parseInt(idCliente);
 		
 		out.println(idCliente);
-		System.out.println(in.readLine()+"\n    Escriba el identificador del mensaje que desea recibir. Debe ser un numero entre 00-09");  //Recibe primer mensaje del repetidor
+		System.out.println(in.readLine());  //Recibe primer mensaje del repetidor
 		
 		String idMensaje = stdIn.readLine();
+		//SIMETRICO
+		if(!Cliente.tipoCifrado)
+		{
+			String key = Repetidor.keysS[numCliente];
+			Symmetric simetrico= new Symmetric();
+			simetrico.setKey(key);
+
+			System.out.println(key);
+		}
+		//ASIMETRICO
+		else {
+			System.out.println("hola");
+		}
+		
 		
 	}
+	
 	
 	
 }
