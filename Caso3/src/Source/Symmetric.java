@@ -9,6 +9,10 @@ import java.util.Base64;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
  
+/**
+ * Source:	
+ * https://newbedev.com/java-aes-128-ecb-mode-java-code-code-example
+ */
 public class Symmetric {
  
     private  SecretKeySpec secretKey;
