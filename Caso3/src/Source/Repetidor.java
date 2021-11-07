@@ -20,9 +20,22 @@ public class Repetidor extends Thread {
 	
 	public static final String DIR_SERVIDOR = "localhost";
 	
-
+	
+	public static String[] keysS;
+	
+	public static String symmKeyServer;
+	
+	
+	public static String[] keysA;
+ 
 	
 	public final static String pathConfigCifrado = "./data/configCifrado.txt";
+
+	
+	public final static String pathKeysSimetrico = "./data/keysS.txt";
+	
+	
+	public final static String pathKeysAsimetrico = "./data/keysA.txt";
 	
 	/**
 	 * Establece el tipo de cifrado que se manejará, 
@@ -32,12 +45,7 @@ public class Repetidor extends Thread {
 	public static boolean tipoCifrado;
 	
 	
-	
-	
-	
-	public Repetidor() {
-		
-	}
+	private static int maxClientes; 
 	
 	
 	
@@ -46,7 +54,28 @@ public class Repetidor extends Thread {
 		File file = new File(pathConfigCifrado);
 		BufferedReader br = new BufferedReader(new FileReader(file));
 
-		tipoCifrado = Integer.parseInt(br.readLine())!=0;  
+		tipoCifrado = Integer.parseInt(br.readLine()) != 0;  
+		
+		//CASO SIMETRICO
+		if(!tipoCifrado) {
+			
+			file = new File(pathKeysSimetrico);
+			br = new BufferedReader(new FileReader(file));
+
+			maxClientes = Integer.parseInt(br.readLine());  
+			symmKeyServer = br.readLine();
+			
+			for (int i = 0; i < maxClientes; i++) {
+				keysS[i]=br.readLine();
+			}
+			
+		}
+		//CASO ASIMETRICO
+		else {
+			
+			
+			
+		}
 		
 	}
 	
