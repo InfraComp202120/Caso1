@@ -11,19 +11,16 @@ public class Main extends Thread {
 
 	public boolean tipoT;
 
-	public final static String pathDatos0 = "./data/referencias2_16_75.txt";
-	public final static String pathDatos1 = "./data/referencias2_32_75.txt";
-	public final static String pathDatos2 = "./data/referencias2_64_75.txt";
-	public final static String pathDatos3 = "./data/referencias2_128_75.txt";
+	public final static String pathDatos0 = "./data/referencias8_16_75.txt";
+	public final static String pathDatos1 = "./data/referencias8_32_75.txt";
+	public final static String pathDatos2 = "./data/referencias8_64_75.txt";
+	public final static String pathDatos3 = "./data/referencias8_128_75.txt";
 
-	//public final static String pathDatos = "./data/prueba0.txt";
-
+	// ----------------- ATRIBUTOS -----------------------------
 
 	private static int numMarcos;
 
-
 	private static int numPag;
-
 
 	private static int numRef;
 
@@ -39,12 +36,25 @@ public class Main extends Thread {
 
 	private static boolean enProceso;
 
+	// ----------------- CONSTRUCTOR -----------------------------
+
+	/**
+	 * 
+	 * @param tipoT
+	 */
 	public Main(boolean tipoT) {
 
 		this.tipoT=tipoT;
 	}
 
 
+
+	// ----------------- RUN DE LOS THREADS-----------------------------
+
+	
+	/**
+	 * 
+	 */
 	public void run() {
 
 		if (tipoT) {
@@ -60,7 +70,6 @@ public class Main extends Thread {
 		for (int i = 0; i <numRef; i++) {
 			int pag = secPag[i];
 			String tipo = secTipo[i];
-			//System.out.println("La ref es: "+ pag+"  el tipo es  "+tipo);
 
 			// TIPO R
 			if(tipo.equalsIgnoreCase("r"))
@@ -94,7 +103,6 @@ public class Main extends Thread {
 			if(meterEnVacio(pag)) {	
 				fallos++;
 				cambiarR(pag);
-				//System.out.println("Se agrego un fallo por vacio lectura con la pg: "+pag);
 			}
 
 			// No hay vacio en el marco
@@ -112,15 +120,12 @@ public class Main extends Thread {
 	public synchronized void procesoEscritura(int pag) {
 		if(estadoPag[pag][2]==0) {
 			estadoPag[pag][2]=1;
-			//fallos++;
-			//System.out.println("Se agrego un fallo por escritura con la pg: "+pag);
 		}
 	}
 	public synchronized void enMarco(int pag) {
 
 		if(estadoPag[pag][1]==0)
 		{
-			//fallos++;
 			cambiarR(pag);
 		}
 	}
@@ -171,7 +176,6 @@ public class Main extends Thread {
 			cambiarR(pag);
 		}	
 		fallos++;
-		//System.out.println("Se agrego un fallo por cambioEnMarco lectura con la pg: "+pag+ "  se eliminó la pg "+pagEliminada);
 	}
 
 
@@ -179,11 +183,6 @@ public class Main extends Thread {
 		estadoPag[pag][1]=1;
 	}
 
-	/**
-	public synchronized void cambiarM(int pag) {
-		estadoPag[pag][2]=1;
-	}
-	 */
 
 
 
@@ -207,9 +206,11 @@ public class Main extends Thread {
 		for (int i = 0; i <numMarcos; i++) {
 			estadoPag[i][1]=0;
 		}
-		//System.out.println("---------------------LIMPIEZA-----------------");
 	}
 
+
+
+	// ----------------- METODO PARA CARGAR DATOS -----------------------------
 
 	public static void cargarDatos() throws Exception {
 
@@ -244,32 +245,33 @@ public class Main extends Thread {
 
 
 
+	// --------------------- MAIN -----------------------------
+
+
 	public static void main(String[] args) {
-		while(true) {
-			enProceso=true;
-			try {
-				cargarDatos();
-			} catch (Exception e) { }
+		enProceso=true;
+		try {
+			cargarDatos();
+		} catch (Exception e) { }
 
-			estadoPag = new int[numPag][3];
-			for (int i = 0; i < numPag; i++) {
-				estadoPag[i][1]=0;
-				estadoPag[i][2]=0;
-			}
-			marcos = new int[numMarcos];
-			for (int i = 0; i < marcos.length; i++) {
-				marcos[i]=-1;
-			}
-
-			fallos=0;
-
-			Main th1 = new Main(false);
-			Main th2 = new Main(true);
-
-			th1.start();
-			th2.start();
-
+		estadoPag = new int[numPag][3];
+		for (int i = 0; i < numPag; i++) {
+			estadoPag[i][1]=0;
+			estadoPag[i][2]=0;
 		}
+		marcos = new int[numMarcos];
+		for (int i = 0; i < marcos.length; i++) {
+			marcos[i]=-1;
+		}
+
+		fallos=0;
+
+		Main th1 = new Main(false);
+		Main th2 = new Main(true);
+
+		th1.start();
+		th2.start();
+
 	}
 
 }
