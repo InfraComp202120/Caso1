@@ -23,7 +23,7 @@ public class Repetidor extends Thread {
 	
 	public static String[] keysS;
 	
-	public static String symmKeyServer;
+	public static String keyRS;
 	
 	
 	public static String[] keysA;
@@ -63,7 +63,8 @@ public class Repetidor extends Thread {
 			br = new BufferedReader(new FileReader(file));
 
 			maxClientes = Integer.parseInt(br.readLine());  
-			symmKeyServer = br.readLine();
+			keysS= new String[maxClientes];
+			keyRS = br.readLine();
 			
 			for (int i = 0; i < maxClientes; i++) {
 				keysS[i]=br.readLine();
@@ -82,6 +83,7 @@ public class Repetidor extends Thread {
 	
 	public static void main(String[] args) throws IOException{
 		cargarConfiguraciones();
+		
 		System.out.println("------------------- INICIALIZANDO EL REPETIDOR -------------------");
 		System.out.println("El tipo de cifrado establecido es: "+ (tipoCifrado?"Asimetrico":"Simetrico"));
 		

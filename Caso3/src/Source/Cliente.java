@@ -24,6 +24,13 @@ public class Cliente {
 	 */
 	public static boolean tipoCifrado;
 	
+
+	
+	
+	public static String[] keysS;
+
+	
+	public final static String pathKeysSimetrico = "./data/keysS.txt";
 	
 	
 	
@@ -33,6 +40,24 @@ public class Cliente {
 		BufferedReader br = new BufferedReader(new FileReader(file));
 
 		tipoCifrado = Integer.parseInt(br.readLine())!=0;  
+		
+		
+		//CASO SIMETRICO
+		if(!tipoCifrado) {
+			
+			file = new File(pathKeysSimetrico);
+			br = new BufferedReader(new FileReader(file));
+			int maxClientes = Integer.parseInt(br.readLine());  
+			keysS= new String[maxClientes];
+			br.readLine();
+			
+			for (int i = 0; i < maxClientes; i++) {
+				keysS[i]=br.readLine();
+			}
+			
+		}
+		//CASO ASIMETRICO
+		
 		
 	}
 	

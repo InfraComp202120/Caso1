@@ -16,24 +16,24 @@ public class Servidor {
 	
 	public static final int PUERTO_S = 3400 ;
 	
-	
-
-	
-	public final static String pathConfigCifrado = "./data/configCifrado.txt";
-	
 	/**
 	 * Establece el tipo de cifrado que se manejará, 
 	 * 0: Simetrico
 	 * 1: Asimetrico
 	 */
 	public static boolean tipoCifrado;
+
 	
+	public static String keyRS;
 	
+
 	
-	public Servidor() {
-		
-	}
+	public final static String pathConfigCifrado = "./data/configCifrado.txt";
+
+
 	
+	public final static String pathKeysSimetrico = "./data/keysS.txt";
+
 	
 	public static void cargarConfiguraciones() throws NumberFormatException, IOException {
 		
@@ -41,6 +41,25 @@ public class Servidor {
 		BufferedReader br = new BufferedReader(new FileReader(file));
 
 		tipoCifrado = Integer.parseInt(br.readLine())!=0;  
+		
+		
+		//CASO SIMETRICO
+		if(!tipoCifrado) {
+			
+			file = new File(pathKeysSimetrico);
+			br = new BufferedReader(new FileReader(file));
+
+			br.readLine();  
+			keyRS = br.readLine();
+			
+		}
+		//CASO ASIMETRICO
+		else {
+			
+			System.out.println("Ola");
+			
+		}
+		
 		
 	}
 	
