@@ -55,7 +55,7 @@ public class KeyGen {
 				e.printStackTrace();
 			}
 	}
-
+	
 
 	public void createKeys() {
 		this.pair = this.keyGen.generateKeyPair();
