@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 import java.util.Scanner;
 
 
@@ -30,9 +32,17 @@ public class Cliente {
 	
 	
 	public static String[] keysS;
+	
+	public static String keyRPub;
+	
+	public static String[] keysCPriv;
 
 	
 	public final static String pathKeysSimetrico = "./data/keysS.txt";
+	
+	public final static String pathKeysAsimetricoPub = "./data/KeyPair/publicKey.txt";
+
+	public final static String pathKeysAsimetricoPriv = "./data/KeyPair/privateKey.txt";
 	
 	
 	
@@ -59,11 +69,30 @@ public class Cliente {
 			
 		}
 		//CASO ASIMETRICO
+		else {
+			file = new File(pathKeysAsimetricoPub);
+			br = new BufferedReader(new FileReader(file));
+			int maxClientes = Integer.parseInt(br.readLine());  
+			br.readLine();
+			keyRPub = br.readLine();
+			
+			
+			file = new File(pathKeysAsimetricoPriv);
+			br = new BufferedReader(new FileReader(file));
+			br.readLine();
+			br.readLine();
+			br.readLine();
+			keysCPriv= new String[maxClientes];
+			for (int i = 0; i < maxClientes; i++) {
+				keysCPriv[i]=br.readLine();
+			}
+		}
+		
 		
 		
 	}
 	
-	public static void main(String args[]) throws IOException{
+	public static void main(String args[]) throws IOException, NoSuchAlgorithmException, NoSuchProviderException{
 		cargarConfiguraciones();
 		
 		System.out.println("------------------- INICIALIZANDO EL CLIENTE PRINCIPAL-------------------");
@@ -72,6 +101,7 @@ public class Cliente {
 		System.out.println("Digite el número de clientes que desea para el programa: ");
 		Scanner sc = new Scanner(System.in);
 		int numClientes = sc.nextInt();
+		KeyGen keygen = new KeyGen(1024, numClientes);
 		
 		for (int i = 0; i < numClientes; i++) {
 			ThreadCliente threadC =  new ThreadCliente(i);

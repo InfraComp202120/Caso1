@@ -1,8 +1,11 @@
 package Source;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
@@ -24,13 +27,33 @@ import org.apache.commons.codec.binary.Base64;
 
 public class Asymmetric {
 	private Cipher cipher;
-
-	public Asymmetric() throws NoSuchAlgorithmException, NoSuchPaddingException {
+	
+	private String pathPrivada;
+	
+	private String pathPublica;
+	
+	private String[] privates;
+	
+	
+	
+	public Asymmetric() throws NoSuchAlgorithmException, NoSuchPaddingException, FileNotFoundException {
 		this.cipher = Cipher.getInstance("RSA");
+		pathPrivada =  "./data/KeyPair/privateKey";
+		pathPublica = "./data/KeyPair/publicKey";
+		FileReader fr = new FileReader(new File(pathPrivada));
+		BufferedReader br = new BufferedReader(fr);
+		
+		
 	}
 
 	// https://docs.oracle.com/javase/8/docs/api/java/security/spec/PKCS8EncodedKeySpec.html
-	public PrivateKey getPrivate(String filename) throws Exception {
+	public PrivateKey getPrivate(int fila) throws Exception {
+		FileReader fr = new FileReader(new File(pathPrivada));
+		BufferedReader br = new BufferedReader(fr);
+		String llave = br.readLine();
+		for (int j = 0; j < fila; j++) {
+			llave = br.readLine();
+		}
 		byte[] keyBytes = Files.readAllBytes(new File(filename).toPath());
 		PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(keyBytes);
 		KeyFactory kf = KeyFactory.getInstance("RSA");
@@ -45,25 +68,7 @@ public class Asymmetric {
 		return kf.generatePublic(spec);
 	}
 
-	public void encryptFile(byte[] input, File output, PrivateKey key) 
-		throws IOException, GeneralSecurityException {
-		this.cipher.init(Cipher.ENCRYPT_MODE, key);
-		writeToFile(output, this.cipher.doFinal(input));
-	}
 
-	public void decryptFile(byte[] input, File output, PublicKey key) 
-		throws IOException, GeneralSecurityException {
-		this.cipher.init(Cipher.DECRYPT_MODE, key);
-		writeToFile(output, this.cipher.doFinal(input));
-	}
-
-	private void writeToFile(File output, byte[] toWrite)
-			throws IllegalBlockSizeException, BadPaddingException, IOException {
-		FileOutputStream fos = new FileOutputStream(output);
-		fos.write(toWrite);
-		fos.flush();
-		fos.close();
-	}
 
 	public String encryptText(String msg, PrivateKey key) 
 			throws NoSuchAlgorithmException, NoSuchPaddingException,
@@ -88,8 +93,8 @@ public class Asymmetric {
 		return fbytes;
 	}
 
-	public static void main(String[] args) throws Exception {
-		KeyGen key = new KeyGen(1024, 16);
+//	public static void main(String[] args) throws Exception {
+//		KeyGen key = new KeyGen(1024, 16);
 //		Asymmetric ac = new Asymmetric();
 //		PrivateKey privateKey = ac.getPrivate("./data/KeyPair/privateKey");
 //		PublicKey publicKey = ac.getPublic("./data/KeyPair/publicKey");

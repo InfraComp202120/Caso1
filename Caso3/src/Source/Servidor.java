@@ -34,6 +34,15 @@ public class Servidor {
 	public final static String pathKeysSimetrico = "./data/keysS.txt";
 	
 	public final static String pathMensajes = "./data/mensajes.txt";
+	
+
+	public final static String pathKeysAsimetricoPub = "./data/KeyPair/publicKey.txt";
+
+	public final static String pathKeysAsimetricoPriv = "./data/KeyPair/privateKey.txt";
+	
+	public static String keyRPub;
+
+	public static String keySPriv;
 
 	
 	public static void cargarConfiguraciones() throws NumberFormatException, IOException {
@@ -64,7 +73,17 @@ public class Servidor {
 		}
 		//CASO ASIMETRICO
 		else {
+			file = new File(pathKeysAsimetricoPriv);
+			br = new BufferedReader(new FileReader(file));
+			br.readLine();
+			keySPriv = br.readLine();
 			
+			file = new File(pathKeysAsimetricoPub);
+			br = new BufferedReader(new FileReader(file));
+			br.readLine();
+			br.readLine();
+			keyRPub = br.readLine();
+		
 			System.out.println("Ola");
 			
 		}

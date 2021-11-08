@@ -28,14 +28,17 @@ public class KeyGen {
 
 	public KeyGen(int keyLength, int numClientes) throws NoSuchAlgorithmException, NoSuchProviderException {
 
-		fPublico = new File("./data/KeyPair/publicKey");
-		fPrivado = new File("./data/KeyPair/privateKey");
+		fPublico = new File("./data/KeyPair/publicKey.txt");
+		fPrivado = new File("./data/KeyPair/privateKey.txt");
 		FileWriter fwPriv;
 		FileWriter fwPub;
 		try {
 			fwPriv = new FileWriter(fPrivado);
 			fwPub = new FileWriter(fPublico);
-
+			
+			writeToFile(fwPub, numClientes +"");
+			writeToFile( fwPriv, numClientes+"");
+			
 			for (int i = 0; i < numClientes+2; i++) {
 
 				this.keyGen = KeyPairGenerator.getInstance("RSA");
@@ -43,8 +46,8 @@ public class KeyGen {
 				createKeys();
 				Base64.Encoder encoder = Base64.getEncoder();
 
-				writeToFile(fwPub, encoder.encodeToString(getPublicKey().getEncoded()), i, 0);
-				writeToFile( fwPriv, encoder.encodeToString(getPrivateKey().getEncoded()), i, 1);
+				writeToFile(fwPub, encoder.encodeToString(getPublicKey().getEncoded()));
+				writeToFile( fwPriv, encoder.encodeToString(getPrivateKey().getEncoded()));
 			}
 			fwPriv.close();
 			fwPub.close();
@@ -68,24 +71,10 @@ public class KeyGen {
 		return this.publicKey;
 	}
 
-	public void writeToFile(FileWriter fw, String key, int i, int tipo) throws IOException {
+	public void writeToFile(FileWriter fw, String key) throws IOException {
 		fw.write(key);
 		fw.write("\n");
 	}
 
-	//	public static void main(String[] args) {
-	//		KeyGen gk;
-	//		try {
-	//			gk = new KeyGen(1024);
-	//			gk.createKeys();
-	//			gk.writeToFile("KeyPair/publicKey", gk.getPublicKey().getEncoded());
-	//			gk.writeToFile("KeyPair/privateKey", gk.getPrivateKey().getEncoded());
-	//		} catch (NoSuchAlgorithmException | NoSuchProviderException e) {
-	//			System.err.println(e.getMessage());
-	//		} catch (IOException e) {
-	//			System.err.println(e.getMessage());
-	//		}
-	//
-	//	}
 
 }
