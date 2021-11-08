@@ -46,7 +46,7 @@ public class Cliente {
 	
 	
 	
-	public static void cargarConfiguraciones() throws NumberFormatException, IOException {
+	public static void cargarConfiguraciones(int numClientes) throws NumberFormatException, IOException {
 		
 		File file = new File(pathConfigCifrado);
 		BufferedReader br = new BufferedReader(new FileReader(file));
@@ -73,7 +73,6 @@ public class Cliente {
 			file = new File(pathKeysAsimetricoPub);
 			br = new BufferedReader(new FileReader(file));
 			int maxClientes = Integer.parseInt(br.readLine());
-			System.out.println(maxClientes);
 			br.readLine();
 			keyRPub = br.readLine();
 			
@@ -83,8 +82,8 @@ public class Cliente {
 			br.readLine();
 			br.readLine();
 			br.readLine();
-			keysCPriv= new String[maxClientes];
-			for (int i = 0; i < maxClientes; i++) {
+			keysCPriv= new String[numClientes];
+			for (int i = 0; i < numClientes; i++) {
 				keysCPriv[i]=br.readLine();
 			}
 		}
@@ -94,7 +93,7 @@ public class Cliente {
 	}
 	
 	public static void main(String args[]) throws IOException, NoSuchAlgorithmException, NoSuchProviderException{
-		cargarConfiguraciones();
+
 		
 		System.out.println("------------------- INICIALIZANDO EL CLIENTE PRINCIPAL-------------------");
 		System.out.println("El tipo de cifrado establecido es: "+ (tipoCifrado?"Asimetrico":"Simetrico"));
@@ -102,8 +101,12 @@ public class Cliente {
 		System.out.println("Digite el número de clientes que desea para el programa: ");
 		Scanner sc = new Scanner(System.in);
 		int numClientes = sc.nextInt();
-
 		KeyGen keygen = new KeyGen(1024, numClientes);
+		
+		System.out.println("Ejecute el servidor y el repetidor y escriba 1 para continuar:");
+		sc.nextLine();
+		
+		cargarConfiguraciones(numClientes);
 		
 		for (int i = 0; i < numClientes; i++) {
 			ThreadCliente threadC =  new ThreadCliente(i);
