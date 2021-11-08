@@ -72,7 +72,8 @@ public class Cliente {
 		else {
 			file = new File(pathKeysAsimetricoPub);
 			br = new BufferedReader(new FileReader(file));
-			int maxClientes = Integer.parseInt(br.readLine());  
+			int maxClientes = Integer.parseInt(br.readLine());
+			System.out.println(maxClientes);
 			br.readLine();
 			keyRPub = br.readLine();
 			
@@ -101,6 +102,7 @@ public class Cliente {
 		System.out.println("Digite el número de clientes que desea para el programa: ");
 		Scanner sc = new Scanner(System.in);
 		int numClientes = sc.nextInt();
+
 		KeyGen keygen = new KeyGen(1024, numClientes);
 		
 		for (int i = 0; i < numClientes; i++) {

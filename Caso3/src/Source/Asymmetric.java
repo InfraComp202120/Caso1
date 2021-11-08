@@ -36,8 +36,8 @@ public class Asymmetric {
 	
 	public Asymmetric() throws NoSuchAlgorithmException, NoSuchPaddingException, FileNotFoundException {
 		this.cipher = Cipher.getInstance("RSA");
-		pathPrivada =  "./data/KeyPair/privateKey";
-		pathPublica = "./data/KeyPair/publicKey";
+		pathPrivada =  "./data/KeyPair/privateKey.txt";
+		pathPublica = "./data/KeyPair/publicKey.txt";
 		FileReader fr = new FileReader(new File(pathPrivada));
 		BufferedReader br = new BufferedReader(fr);
 		
@@ -62,15 +62,12 @@ public class Asymmetric {
 
 
 
-	public String encryptText(String msg, PrivateKey key) 
-			throws NoSuchAlgorithmException, NoSuchPaddingException,
-			UnsupportedEncodingException, IllegalBlockSizeException, 
-			BadPaddingException, InvalidKeyException {
+	public String encryptText(String msg, PublicKey key) throws NoSuchAlgorithmException, NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException,  BadPaddingException, InvalidKeyException {
 		this.cipher.init(Cipher.ENCRYPT_MODE, key);
 		return Base64.encodeBase64String(cipher.doFinal(msg.getBytes("UTF-8")));
 	}
 
-	public String decryptText(String msg, PublicKey key)
+	public String decryptText(String msg, PrivateKey key)
 			throws InvalidKeyException, UnsupportedEncodingException, 
 			IllegalBlockSizeException, BadPaddingException {
 		this.cipher.init(Cipher.DECRYPT_MODE, key);
