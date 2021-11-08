@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -94,17 +95,30 @@ public class Cliente {
 	
 	public static void main(String args[]) throws IOException, NoSuchAlgorithmException, NoSuchProviderException{
 
+
+		Scanner sc = new Scanner(System.in);
+		FileWriter fw = new FileWriter(new File(pathConfigCifrado));
+		
 		
 		System.out.println("------------------- INICIALIZANDO EL CLIENTE PRINCIPAL-------------------");
+		System.out.println("Digite 0 para establecer cifrado simetrico, 1 para asimetrico");		
+		tipoCifrado = (sc.nextInt())!=0;  
+		fw.write(tipoCifrado?"1\n":"0\n");
+		sc.nextLine();
+		
 		System.out.println("El tipo de cifrado establecido es: "+ (tipoCifrado?"Asimetrico":"Simetrico"));
 		
 		System.out.println("Digite el número de clientes que desea para el programa: ");
-		Scanner sc = new Scanner(System.in);
 		int numClientes = sc.nextInt();
+		fw.write(""+numClientes);
+		fw.flush();
+		fw.close();
+		sc.nextLine();
+		
 		KeyGen keygen = new KeyGen(1024, numClientes);
 		
 		System.out.println("Ejecute el servidor y el repetidor y escriba 1 para continuar:");
-		sc.nextLine();
+		sc.nextInt();
 		
 		cargarConfiguraciones(numClientes);
 		
