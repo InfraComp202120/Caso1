@@ -51,7 +51,7 @@ public class Repetidor extends Thread {
 	public static boolean tipoCifrado;
 
 
-	private static int maxClientes; 
+	public static int maxClientes; 
 
 
 
@@ -61,6 +61,8 @@ public class Repetidor extends Thread {
 		BufferedReader br = new BufferedReader(new FileReader(file));
 
 		tipoCifrado = Integer.parseInt(br.readLine()) != 0;  
+		maxClientes = Integer.parseInt(br.readLine());
+		System.out.println("El CIFRADOR ES "+tipoCifrado);
 
 		//CASO SIMETRICO
 		if(!tipoCifrado) {
@@ -68,7 +70,7 @@ public class Repetidor extends Thread {
 			file = new File(pathKeysSimetrico);
 			br = new BufferedReader(new FileReader(file));
 
-			maxClientes = Integer.parseInt(br.readLine());  
+			Integer.parseInt(br.readLine());  
 			keysS= new String[maxClientes];
 			keyRS = br.readLine();
 
@@ -81,7 +83,7 @@ public class Repetidor extends Thread {
 		else {
 			file = new File(pathKeysAsimetricoPriv);
 			br = new BufferedReader(new FileReader(file));
-			maxClientes = Integer.parseInt(br.readLine());
+			Integer.parseInt(br.readLine());
 			br.readLine();
 			keyRPriv = br.readLine();
 
@@ -123,7 +125,8 @@ public class Repetidor extends Thread {
 		while(continuar) {
 
 			Socket socket=ss_r.accept();
-			ThreadRepetidor threadDelegado =  new ThreadRepetidor(socket, numThreads);
+			
+			ThreadRepetidor threadDelegado =  new ThreadRepetidor(socket, numThreads, System.currentTimeMillis());
 			numThreads++;
 
 			threadDelegado.start();

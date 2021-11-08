@@ -84,7 +84,6 @@ public class Servidor {
 			br.readLine();
 			keyRPub = br.readLine();
 		
-			System.out.println("Ola");
 			
 		}
 		

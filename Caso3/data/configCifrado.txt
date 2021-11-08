@@ -1,10 +1,2 @@
 1
-
-
-
-
-
-
-
-
-0:Simetrico  1: Asimetrico
+16

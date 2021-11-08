@@ -19,11 +19,13 @@ public class ThreadRepetidor extends Thread {
 	
 	private int id;
 	
-	public ThreadRepetidor(Socket socket, int id) {
+	private long tiempoInicial;
+	
+	public ThreadRepetidor(Socket socket, int id, long tiempoInicial) {
 		
 		this.socket = socket;
 		this.id=id;
-		
+		this.tiempoInicial=tiempoInicial;
 		
 	}
 	
@@ -36,7 +38,7 @@ public class ThreadRepetidor extends Thread {
 			
 			// ACA VA LA PARTE DE ENVIO DE MENSAJES Y ESO
 			
-			ProtocoloRepetidor.procesar(writer, reader);
+			ProtocoloRepetidor.procesar(writer, reader, tiempoInicial);
 			
 			
 			// Cierre de los flujos y socket
