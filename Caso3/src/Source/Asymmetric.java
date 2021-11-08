@@ -89,25 +89,25 @@ public class Asymmetric {
 	}
 
 	public static void main(String[] args) throws Exception {
-		KeyGen key = new KeyGen(512);
-		Asymmetric ac = new Asymmetric();
-		PrivateKey privateKey = ac.getPrivate("./data/KeyPair/privateKey");
-		PublicKey publicKey = ac.getPublic("./data/KeyPair/publicKey");
-
-		String msg = "Cryptography is fun!";
-		String encrypted_msg = ac.encryptText(msg, privateKey);
-		String decrypted_msg = ac.decryptText(encrypted_msg, publicKey);
-		System.out.println("Original Message: " + msg + 
-			"\nEncrypted Message: " + encrypted_msg
-			+ "\nDecrypted Message: " + decrypted_msg);
-
-		if (new File("./data/KeyPair/text.txt").exists()) {
-			ac.encryptFile(ac.getFileInBytes(new File("./data/KeyPair/text.txt")), 
-				new File("./data/KeyPair/text_encrypted.txt"),privateKey);
-			ac.decryptFile(ac.getFileInBytes(new File("./data/KeyPair/text_encrypted.txt")),
-				new File("./data/KeyPair/text_decrypted.txt"), publicKey);
-		} else {
-			System.out.println("Create a file text.txt under folder KeyPair");
-		}
+		KeyGen key = new KeyGen(1024, 16);
+//		Asymmetric ac = new Asymmetric();
+//		PrivateKey privateKey = ac.getPrivate("./data/KeyPair/privateKey");
+//		PublicKey publicKey = ac.getPublic("./data/KeyPair/publicKey");
+//
+//		String msg = "Cryptography is fun!";
+//		String encrypted_msg = ac.encryptText(msg, privateKey);
+//		String decrypted_msg = ac.decryptText(encrypted_msg, publicKey);
+//		System.out.println("Original Message: " + msg + 
+//			"\nEncrypted Message: " + encrypted_msg
+//			+ "\nDecrypted Message: " + decrypted_msg);
+//
+//		if (new File("./data/KeyPair/text.txt").exists()) {
+//			ac.encryptFile(ac.getFileInBytes(new File("./data/KeyPair/text.txt")), 
+//				new File("./data/KeyPair/text_encrypted.txt"),privateKey);
+//			ac.decryptFile(ac.getFileInBytes(new File("./data/KeyPair/text_encrypted.txt")),
+//				new File("./data/KeyPair/text_decrypted.txt"), publicKey);
+//		} else {
+//			System.out.println("Create a file text.txt under folder KeyPair");
+//		}
 	}
 }
