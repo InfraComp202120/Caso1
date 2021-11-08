@@ -26,21 +26,30 @@ public class Servidor {
 	
 	public static String keyRS;
 	
-
-	
+	public static String[] mensajes;
+ 	
 	public final static String pathConfigCifrado = "./data/configCifrado.txt";
-
 
 	
 	public final static String pathKeysSimetrico = "./data/keysS.txt";
+	
+	public final static String pathMensajes = "./data/mensajes.txt";
 
 	
 	public static void cargarConfiguraciones() throws NumberFormatException, IOException {
 		
 		File file = new File(pathConfigCifrado);
 		BufferedReader br = new BufferedReader(new FileReader(file));
-
 		tipoCifrado = Integer.parseInt(br.readLine())!=0;  
+		
+		//LECTURA DE LOS MENSAJES
+		mensajes = new String[10];
+		file = new File(pathMensajes);
+		br = new BufferedReader(new FileReader(file));
+		
+		for (int i = 0; i < 10; i++) {
+			mensajes[i]=br.readLine();
+		}
 		
 		
 		//CASO SIMETRICO

@@ -56,8 +56,14 @@ public class ProtocoloRepetidor {
 			writer_rs.println(msjEncriptadoRS);
 			
 			
+			// RECIBE y DESENCRIPTA EL MENSAJE RECIBIDO DE SERVIDOR CON LLAVE RS
+			String msjEncriptadoSR = reader_rs.readLine();
+			String msjDesencriptadoSR = simetrico.decrypt(msjEncriptadoSR, keyRS); 
+			//System.out.println("Recibí");
 			
-			
+			// ENCRIPTA Y ENVÍA EL MENSAJE A CLIENTE 
+			String msjEncriptadoCR = simetrico.encrypt(msjDesencriptadoSR, keyCR);
+			writer_cr.println(msjEncriptadoCR);
 		}
 		//ASIMETRICO
 		else {

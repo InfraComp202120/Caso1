@@ -1,4 +1,4 @@
-package Source;
+package source;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -8,8 +8,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.Scanner;
 
+import com.sun.tools.javac.code.Type.ForAll;
 
 public class Cliente {
 
@@ -69,13 +69,33 @@ public class Cliente {
 		System.out.println("------------------- INICIALIZANDO EL CLIENTE PRINCIPAL-------------------");
 		System.out.println("El tipo de cifrado establecido es: "+ (tipoCifrado?"Asimetrico":"Simetrico"));
 		
-		System.out.println("Digite el número de clientes que desea para el programa: ");
-		Scanner sc = new Scanner(System.in);
-		int numClientes = sc.nextInt();
+		System.out.println("");
+		
+		Socket socket = null;
+		
+		PrintWriter writer = null;
+		BufferedReader reader = null;
+		
+		
+		try {
+			socket = new Socket (DIR_SERVIDOR, PUERTO_R);
+			writer = new PrintWriter(socket.getOutputStream(),true);
+			reader = new BufferedReader (new InputStreamReader (socket.getInputStream()));
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+		BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
+		
+		ProtocoloCliente.procesar(stdIn,writer, reader);
+		
+		writer.close();
+		reader.close();
+		socket.close();
+		
 		
 		for (int i = 0; i < numClientes; i++) {
-			ThreadCliente threadC =  new ThreadCliente(i);
-			threadC.start();
 			
 		}
 	}

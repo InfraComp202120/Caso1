@@ -1,4 +1,4 @@
-package Source;
+package source;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,11 +8,14 @@ import java.io.PrintWriter;
 public class ProtocoloCliente {
 
 	
-	public static  void procesar(BufferedReader stdIn, PrintWriter out, BufferedReader in, int numCliente) throws IOException{
+	public static  void procesar(BufferedReader stdIn, PrintWriter out, BufferedReader in) throws IOException{
 
-		System.out.println("Bienvenido cliente número: "+ numCliente);
+		System.out.println("Bienvenido, escriba su identificador. (Números que inician en 0)");
 		
-		out.println(numCliente);
+		String idCliente = stdIn.readLine();
+		int numCliente = Integer.parseInt(idCliente);
+		
+		out.println(idCliente);
 		System.out.println(in.readLine());  //Recibe primer mensaje del repetidor
 		String idMsj=""+(int) (Math.random()*10);
 		
@@ -42,8 +45,7 @@ public class ProtocoloCliente {
 		}
 		//ASIMETRICO
 		else {
-			
-			
+			System.out.println("hola");
 		}
 		
 		
