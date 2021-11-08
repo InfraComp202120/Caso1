@@ -4,12 +4,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
-import java.security.GeneralSecurityException;
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
@@ -47,22 +45,16 @@ public class Asymmetric {
 	}
 
 	// https://docs.oracle.com/javase/8/docs/api/java/security/spec/PKCS8EncodedKeySpec.html
-	public PrivateKey getPrivate(int fila) throws Exception {
-		FileReader fr = new FileReader(new File(pathPrivada));
-		BufferedReader br = new BufferedReader(fr);
-		String llave = br.readLine();
-		for (int j = 0; j < fila; j++) {
-			llave = br.readLine();
-		}
-		byte[] keyBytes = Files.readAllBytes(new File(filename).toPath());
+	public PrivateKey getPrivate(String llave) throws Exception {
+		byte[] keyBytes = Base64.decodeBase64(llave);
 		PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(keyBytes);
 		KeyFactory kf = KeyFactory.getInstance("RSA");
 		return kf.generatePrivate(spec);
 	}
 
 	// https://docs.oracle.com/javase/8/docs/api/java/security/spec/X509EncodedKeySpec.html
-	public PublicKey getPublic(String filename) throws Exception {
-		byte[] keyBytes = Files.readAllBytes(new File(filename).toPath());
+	public PublicKey getPublic(String llave) throws Exception {
+		byte[] keyBytes = Base64.decodeBase64(llave);
 		X509EncodedKeySpec spec = new X509EncodedKeySpec(keyBytes);
 		KeyFactory kf = KeyFactory.getInstance("RSA");
 		return kf.generatePublic(spec);
@@ -85,13 +77,13 @@ public class Asymmetric {
 		return new String(cipher.doFinal(Base64.decodeBase64(msg)), "UTF-8");
 	}
 
-	public byte[] getFileInBytes(File f) throws IOException {
-		FileInputStream fis = new FileInputStream(f);
-		byte[] fbytes = new byte[(int) f.length()];
-		fis.read(fbytes);
-		fis.close();
-		return fbytes;
-	}
+//	public byte[] getFileInBytes(File f) throws IOException {
+//		FileInputStream fis = new FileInputStream(f);
+//		byte[] fbytes = new byte[(int) f.length()];
+//		fis.read(fbytes);
+//		fis.close();
+//		return fbytes;
+//	}
 
 //	public static void main(String[] args) throws Exception {
 //		KeyGen key = new KeyGen(1024, 16);
@@ -114,5 +106,5 @@ public class Asymmetric {
 //		} else {
 //			System.out.println("Create a file text.txt under folder KeyPair");
 //		}
-	}
+//	}
 }
