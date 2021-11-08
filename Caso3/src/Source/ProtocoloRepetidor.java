@@ -5,12 +5,18 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 public class ProtocoloRepetidor {
 
 	
 	
-	public static void procesar(PrintWriter writer_cr, BufferedReader reader_cr) throws IOException{
+	public static void procesar(PrintWriter writer_cr, BufferedReader reader_cr) throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, Exception{
 
 		Socket socket_rs = null;
 		
@@ -67,6 +73,36 @@ public class ProtocoloRepetidor {
 		}
 		//ASIMETRICO
 		else {
+			
+			
+			// Llaves asimetricas
+			String keyCPub = Repetidor.keysAPub[numCliente];
+			String keyRPriv  = Repetidor.keyRPriv;
+			String keySPub = Repetidor.keySPub;
+			
+			//Instancia del encriptador
+			Asymmetric asimetrico= new Asymmetric();
+			
+			// Recibe y desencripta el mensaje encriptado
+			String msjClienteEncriptado = reader_cr.readLine();
+			String idMsjClienteDes = asimetrico.decryptText(msjClienteEncriptado, asimetrico.getPrivate(keyRPriv)); //Se almacena en idMsj el número del mensaje.
+			
+			System.out.println("Se recibió el mensaje encriptado: "+msjClienteEncriptado + " Se desencriptó con la llave correspondiente: "+idMsjClienteDes);
+			
+			
+			// Encripta y envía el mensaje al servidor con su llave
+			String msjEncriptadoRS = asimetrico.encryptText(idMsjClienteDes, asimetrico.getPublic(keySPub));
+			writer_rs.println(msjEncriptadoRS);
+			
+			
+			// RECIBE y DESENCRIPTA EL MENSAJE RECIBIDO DE SERVIDOR CON LLAVE RS
+			String msjEncriptadoSR = reader_rs.readLine();
+			String msjDesencriptadoSR = asimetrico.decryptText(msjEncriptadoSR, asimetrico.getPrivate(keyRPriv));
+			//System.out.println("Recibí");
+			
+			// ENCRIPTA Y ENVÍA EL MENSAJE A CLIENTE 
+			String msjEncriptadoCR = asimetrico.encryptText(msjDesencriptadoSR, asimetrico.getPublic(keyCPub));
+			writer_cr.println(msjEncriptadoCR);
 			
 			
 		}
